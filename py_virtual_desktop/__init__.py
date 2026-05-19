@@ -6,6 +6,7 @@ from py_virtual_desktop._exceptions import (
     WindowMoveError,
     WindowNotFoundError,
 )
+from py_virtual_desktop._manager import move_windows
 from py_virtual_desktop._compat import is_available
 
 __all__ = [
@@ -16,5 +17,6 @@ __all__ = [
     "DesktopNotFoundError",
     "WindowMoveError",
     "WindowNotFoundError",
+    "move_windows",
     "is_available",
 ]
