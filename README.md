@@ -1,6 +1,6 @@
 # py-virtual-desktop
 
-Native Python access to Windows 10/11 virtual desktop management. Thin facade over [pyvda](https://github.com/mirober/pyvda) with added window discovery by PID, auto-creation of desktops, and a high-level `move_windows_by_pid()` API.
+Native Python access to Windows 10/11 virtual desktop management. API modeled after [PSVirtualDesktop](https://github.com/MScholtes/PSVirtualDesktop) (`Get-DesktopCount`, `Get-Desktop`, `Move-Window`, `Find-WindowHandle`), built as a thin facade over [pyvda](https://github.com/mirober/pyvda).
 
 ## Why not just use pyvda directly?
 
