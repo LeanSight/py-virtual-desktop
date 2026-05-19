@@ -37,7 +37,7 @@ chrome = Window.find(title="Chrome")
 chrome[0].move_to(work)         # with Desktop object
 chrome[0].move_to(2)            # or by index
 
-# Move all windows of a process (primary use case)
+# Move all windows of a process
 count = move_windows(pid=12345, to=1)
 print(f"Moved {count} windows")
 ```
