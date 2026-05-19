@@ -1,4 +1,5 @@
 from py_virtual_desktop._desktop import Desktop, Desktops
+from py_virtual_desktop._window import Window
 from py_virtual_desktop._exceptions import (
     VirtualDesktopError,
     DesktopNotFoundError,
@@ -10,6 +11,7 @@ from py_virtual_desktop._compat import is_available
 __all__ = [
     "Desktop",
     "Desktops",
+    "Window",
     "VirtualDesktopError",
     "DesktopNotFoundError",
     "WindowMoveError",
