@@ -2,6 +2,14 @@
 
 Native Python access to Windows 10/11 virtual desktop management. Thin facade over [pyvda](https://github.com/mirober/pyvda) with added window discovery by PID, auto-creation of desktops, and a high-level `move_windows_by_pid()` API.
 
+## Why
+
+Managing virtual desktops from Python previously required shelling out to PowerShell with the [PSVirtualDesktop](https://github.com/MScholtes/PSVirtualDesktop) module (`Import-Module VirtualDesktop`). This worked but added subprocess overhead, fragile string-templated scripts, and a hard dependency on PowerShell.
+
+py-virtual-desktop replaces that approach with direct Python calls. The API mirrors the PSVirtualDesktop cmdlets that matter most — `Get-DesktopCount`, `Get-Desktop`, `New-Desktop`, `Move-Window`, and `Find-WindowHandle` — but as native Python functions with typed return values.
+
+Under the hood it uses [pyvda](https://github.com/mirober/pyvda), which wraps the same undocumented Windows COM interfaces (`IVirtualDesktopManagerInternal`, `IVirtualDesktopManager`, `IApplicationView`) that PSVirtualDesktop reverse-engineered in C#. The window discovery by PID (`find_window_handles`) is the one piece pyvda doesn't cover — it uses `win32gui.EnumWindows` directly.
+
 ## Install
 
 ```bash
