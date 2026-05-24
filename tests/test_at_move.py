@@ -66,6 +66,24 @@ class TestWindowMoveTo:
 
         mock_pyvda.AppView.assert_called_with(hwnd=100)
 
+    def test_move_to_preserves_current_desktop(self, mock_all):
+        """
+        Given  user is on desktop 0
+        When   window.move_to(1) is called
+        Then   the window is moved AND user stays on desktop 0
+        """
+        mock_pyvda, win32gui, win32process = mock_all
+        _setup_windows(win32gui, win32process, [(100, 5000, "App", True)])
+
+        original_vd = mock_pyvda.VirtualDesktop.current()
+
+        from py_virtual_desktop import Window
+
+        w = Window.find(pid=5000)[0]
+        w.move_to(1)
+
+        original_vd.go.assert_called()
+
     def test_move_to_desktop_object(self, mock_all):
         """
         Given  a window and a Desktop object
@@ -135,3 +153,20 @@ class TestMoveWindows:
 
         assert count == 1
         mock_pyvda.AppView.assert_called_with(hwnd=500)
+
+    def test_move_windows_preserves_current_desktop(self, mock_all):
+        """
+        Given  user is on desktop 0 with a process having windows
+        When   move_windows(pid=5000, to=1) is called
+        Then   windows are moved AND user stays on desktop 0
+        """
+        mock_pyvda, win32gui, win32process = mock_all
+        _setup_windows(win32gui, win32process, [(200, 5000, "App", True)])
+
+        original_vd = mock_pyvda.VirtualDesktop.current()
+
+        from py_virtual_desktop import move_windows
+
+        move_windows(pid=5000, to=1)
+
+        original_vd.go.assert_called()

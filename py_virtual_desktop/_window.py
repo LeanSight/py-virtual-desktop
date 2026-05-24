@@ -40,6 +40,7 @@ class Window:
             raise TypeError(f"Expected Desktop or int, got {type(desktop).__name__}")
 
         Desktops().ensure(idx + 1)
+        original = pyvda.VirtualDesktop.current()
         try:
             vd = pyvda.VirtualDesktop(number=idx + 1)
             view = pyvda.AppView(hwnd=self._hwnd)
@@ -48,6 +49,8 @@ class Window:
             raise WindowMoveError(
                 str(exc), hwnd=self._hwnd, target_desktop=idx,
             ) from exc
+        finally:
+            original.go()
 
     @classmethod
     def find(
